@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
+import img1 from './assets/images/image.jpg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
@@ -91,7 +92,9 @@ function App() {
             <p>Your trusted tech partner</p>
             <button>View More</button>
           </div>
-          <div style={{ width:'40%' ,backgroundColor:'#333', height:'200px', textAlign:'center',lineHeight:'200px' }}>IMAGE</div>
+          <div style={{ width:'40%' ,backgroundColor:'#333', height:'200px', textAlign:'center',lineHeight:'200px' }}>
+            <img src={img1} alt="" />
+          </div>
         </section>
         {/* footer */}
         <footer style={{ borderTop:'1px solid #ccc',padding:'30px 40px'}}>
