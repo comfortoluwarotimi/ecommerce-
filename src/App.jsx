@@ -26,79 +26,100 @@ function App() {
           Edit <code>src/App.jsx</code> and save to test HMR
         </p> */}
         {/* header */}
-        <header style={{ display:'flex', justifyContent:'space-between',padding:'15px 40px' , borderBottom:'1px solid #ccc' }}>
+        <header style={{ display: 'flex', justifyContent: 'space-between', padding: '15px 40px', borderBottom: '1px solid #ccc' }}>
           <h1>SOCIETY</h1>
-        <nav>
-          <a href="#">shop</a>
-          <a href="#">Featured</a>
-          <a href="#">Pages</a>
-          <a href="#">Blog</a>
-        </nav>
-           <div>
+          <nav>
+            <a href="#">shop</a>
+            <a href="#">Featured</a>
+            <a href="#">Pages</a>
+            <a href="#">Blog</a>
+          </nav>
+          <div>
             <button>Search</button>
             <button>Cart</button>
-        </div>
+          </div>
         </header>
         {/* hero section */}
         <section>
           <h2>Style Destination</h2>
           <h1>Spring Collection </h1>
-        <p>An electronic title provides the same information as a paper title and requires the same documents as a paper title</p>
-        <div>
-          <button>Shop Now</button>
-          <button>Read More </button>
-        </div>
-        </section>
-       {/* feature tiles */}
-        <section style={{ display:'flex' ,justifyContent:'center',gap:'20px',padding:'20px 40px' }}>
-          
-          <div style={{backgroundColor:'#eee' ,width:'100px' ,height:'100px', margin:'auto'}}>
-          <p>Online store</p>
-          <a href="#">Shop Now</a>
+          <p>An electronic title provides the same information as a paper title and requires the same documents as a paper title</p>
+          <div>
+            <button>Shop Now</button>
+            <button>Read More </button>
           </div>
-          <div style={{ backgroundColor:'#eee', width: '100px' ,height: ''}}>
+        </section>
+        {/* feature tiles */}
+        <section style={{ display: 'flex', justifyContent: 'center', gap: '20px', padding: '20px 40px' }}>
+
+          <div style={{ backgroundColor: '#eee', width: '100px', height: '100px', margin: 'auto' }}>
+            <p>Online store</p>
+            <a href="#">Shop Now</a>
+          </div>
+          <div style={{ backgroundColor: '#eee', width: '100px', height: '' }}>
             <p>New Items</p>
             <a href="#">Shop Now</a>
           </div>
-           <div  style={{ backgroundColor:'#eee', width: '100px' ,height: '100px'}}>
-          <p>Online store</p>
-          <a href="#">Shop Now</a>
+          <div style={{ backgroundColor: '#eee', width: '100px', height: '100px' }}>
+            <p>Online store</p>
+            <a href="#">Shop Now</a>
           </div>
-          <div  style={{ backgroundColor:'#eee', width: '100px' ,height: '100px'}}>
+          <div style={{ backgroundColor: '#eee', width: '100px', height: '100px' }}>
             <p>New Items</p>
             <a href="#">Shop Now</a>
           </div>
         </section>
         {/* last Collection */}
-        
-        {/* <section style={{padding:'40px'}}>
-          <h2 style={{ textAlign:'center'}}>Last Collection</h2>
-          <div style={{display:'grid' ,gridTemplateColumns:'repeat(auto-fit,minmax(200px,1fr))',gap:'20px',marginTop:'20px'}}>
-          {products.map(product=>(
-            <div key={product.id}
-             style={{ border:'1px solid #ddd' ,padding:'15px' ,textAlign:'center'}}>
-              <div style={{ backgroundColor:'#f5f5f5' ,height:'120px' ,marginBottom:'10px'}}>Product image</div>
-              <h4>{product.name }</h4>
-              <p>${product.price.tofixed(2)}</p>
-            </div>
-          ))}
-          </div>
-        </section> */}
 
-        {/*  more about store */ }
-        <section style={{ backgroundColor:'#000', color:'#fff', padding:'50px 40px',display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-          <div style={{ width:'50%'}}> 
+        <section className="p-10">
+          <h2 className="text-center text-2xl">Last Collection</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-5">
+            {/* {products.map(product => (
+      <div key={product.id} className="border border-gray-300 p-4 text-center">
+        <div className="bg-gray-100 h-30 mb-3">Product image</div>
+        <h4 className="text-xl">yooo</h4>
+        <p className="text-lg">$20</p>
+      </div>
+    ))} */}
+            <div className="border border-gray-300 p-4 text-center">
+              <div className="bg-gray-100 h-30 mb-3">Product image</div>
+              <h4 className="text-xl">yooo</h4>
+              <p className="text-lg">$20</p>
+            </div>
+            <div className="border border-gray-300 p-4 text-center">
+              <div className="bg-gray-100 h-30 mb-3">Product image</div>
+              <h4 className="text-xl">yooo</h4>
+              <p className="text-lg">$20</p>
+            </div>
+            <div className="border border-gray-300 p-4 text-center">
+              <div className="bg-gray-100 h-30 mb-3">Product image</div>
+              <h4 className="text-xl">yooo</h4>
+              <p className="text-lg">$20</p>
+            </div>
+            <div className="border border-gray-300 p-4 text-center">
+              <div className="bg-gray-100 h-30 mb-3">Product image</div>
+              <h4 className="text-xl">yooo</h4>
+              <p className="text-lg">$20</p>
+            </div>
+            
+          </div>
+        </section>
+
+
+        {/*  more about store */}
+        <section style={{ backgroundColor: '#000', color: '#fff', padding: '50px 40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div style={{ width: '50%' }}>
             <h3>GADGET STORE</h3>
             <p>Your trusted tech partner</p>
             <button>View More</button>
           </div>
-          <div style={{ width:'40%' ,backgroundColor:'#333', height:'200px', textAlign:'center',lineHeight:'200px' }}>
+          <div style={{ width: '40%', backgroundColor: '#333', height: '200px', textAlign: 'center', lineHeight: '200px' }}>
             <img src={img1} alt="" />
           </div>
         </section>
         {/* footer */}
-        <footer style={{ borderTop:'1px solid #ccc',padding:'30px 40px'}}>
-          <div style={{ display:'flex', justifyContent:'space-between'}}>
+        <footer style={{ borderTop: '1px solid #ccc', padding: '30px 40px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
             <div>
               <h4>Shop</h4>
               <ul>
@@ -121,7 +142,7 @@ function App() {
               <button>Go</button>
             </div>
           </div>
-          <p style={{ textAlign:'center' ,marginTop:'20px'}}>{new Date().getFullYear()} SOCIETY. All rights reserved.</p>
+          <p style={{ textAlign: 'center', marginTop: '20px' }}>{new Date().getFullYear()} SOCIETY. All rights reserved.</p>
         </footer>
       </div>
       {/* <p className="read-the-docs">
