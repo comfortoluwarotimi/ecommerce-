@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:2005/api';
+const API_URL = 'https://ecommerce-back-k3bg.onrender.com/api';
 
 // API Service
 const api = {
