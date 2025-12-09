@@ -1,16 +1,37 @@
 import { Minus, Plus, ShoppingCart, Trash2, X } from "lucide-react";
+import { useState, useEffect } from "react";
+import api from "../../services/api";
 
-const CartSidebar = ({ isOpen, onClose, cartItems, onUpdateQuantity, onRemoveItem, onCheckout }) => {
+const CartSidebar = ({ isOpen, onClose, cartItems, onUpdateQuantity, onRemoveItem, onCheckout,refetch }) => {
+  const [isRemoving, setIsRemoving] = useState(null);  
+
+  // Calculating the subtotal, tax, shipping, and total
   const subtotal = cartItems.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
-  const tax = subtotal * 0.1;
-  const shipping = subtotal > 0 ? 10 : 0;
+  const tax = subtotal * 0.1; // 10% tax
+  const shipping = subtotal > 0 ? 10 : 0; // Flat shipping rate of $10
   const total = subtotal + tax + shipping;
 
   if (!isOpen) return null;
 
+  const handleRemoveItem = async (productId) => {
+    setIsRemoving(productId);
+    try {
+      await api.removeFromCart(productId); 
+      onRemoveItem(productId); 
+      refetch();
+      setIsRemoving(null);
+    } catch (error) {
+      console.error("Failed to remove item:", error);
+      setIsRemoving(null);
+    }
+  };
+
   return (
     <>
+      {/* Overlay background */}
       <div className="fixed inset-0 bg-black bg-opacity-50 z-40" onClick={onClose} />
+      
+      {/* Cart Sidebar */}
       <div className="fixed right-0 top-0 h-full w-full max-w-md bg-white shadow-2xl z-50 flex flex-col">
         {/* Header */}
         <div className="flex justify-between items-center p-6 border-b">
@@ -31,18 +52,24 @@ const CartSidebar = ({ isOpen, onClose, cartItems, onUpdateQuantity, onRemoveIte
             <div className="space-y-4">
               {cartItems.map((item) => (
                 <div key={item.product._id} className="flex items-start space-x-4 bg-gray-50 p-4 rounded-lg">
+                  {/* Product Image */}
                   <div className="bg-white p-2 rounded text-3xl">{item.product.image}</div>
+
+                  {/* Product Details */}
                   <div className="flex-1 min-w-0">
                     <h3 className="font-semibold text-sm truncate">{item.product.name}</h3>
                     <p className="text-sm text-gray-600">${item.product.price.toFixed(2)}</p>
                     <div className="flex items-center space-x-2 mt-2">
+                      {/* Decrease Quantity */}
                       <button
                         onClick={() => onUpdateQuantity(item.product._id, Math.max(1, item.quantity - 1))}
                         className="p-1 border border-gray-300 rounded hover:bg-gray-100"
                       >
                         <Minus size={14} />
                       </button>
+                      {/* Quantity */}
                       <span className="w-8 text-center font-semibold">{item.quantity}</span>
+                      {/* Increase Quantity */}
                       <button
                         onClick={() => onUpdateQuantity(item.product._id, item.quantity + 1)}
                         className="p-1 border border-gray-300 rounded hover:bg-gray-100"
@@ -51,13 +78,21 @@ const CartSidebar = ({ isOpen, onClose, cartItems, onUpdateQuantity, onRemoveIte
                       </button>
                     </div>
                   </div>
+
+                  {/* Total Price per Item */}
                   <div className="text-right">
                     <p className="font-bold">${(item.product.price * item.quantity).toFixed(2)}</p>
+                    {/* Remove Item Button */}
                     <button
-                      onClick={() => onRemoveItem(item.product._id)}
+                      onClick={() => handleRemoveItem(item.product._id)}  // Call the new remove function
+                      disabled={isRemoving === item.product._id}  // Disable the button while removing
                       className="text-red-500 hover:text-red-700 mt-2"
                     >
-                      <Trash2 size={18} />
+                      {isRemoving === item.product._id ? (
+                        <span>Removing...</span>
+                      ) : (
+                        <Trash2 size={18} />
+                      )}
                     </button>
                   </div>
                 </div>
@@ -66,7 +101,7 @@ const CartSidebar = ({ isOpen, onClose, cartItems, onUpdateQuantity, onRemoveIte
           )}
         </div>
 
-        {/* Footer */}
+        {/* Footer with Pricing Summary */}
         {cartItems.length > 0 && (
           <div className="border-t p-6 bg-gray-50">
             <div className="space-y-2 mb-4">
@@ -87,6 +122,7 @@ const CartSidebar = ({ isOpen, onClose, cartItems, onUpdateQuantity, onRemoveIte
                 <span className="text-blue-600">${total.toFixed(2)}</span>
               </div>
             </div>
+            {/* Checkout Button */}
             <button
               onClick={onCheckout}
               className="w-full bg-black text-white py-3 rounded-lg font-semibold hover:bg-gray-800 transition"

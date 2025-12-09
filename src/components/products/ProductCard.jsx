@@ -1,23 +1,31 @@
 import { Check, Plus } from "lucide-react";
 import { useState } from "react";
+import api from "../../services/api";
 
 const ProductCard = ({ product, onAddToCart }) => {
   const [isAdding, setIsAdding] = useState(false);
 
   const handleAddToCart = async () => {
     setIsAdding(true);
-    await onAddToCart(product);
-    setTimeout(() => setIsAdding(false), 500);
+    try {
+      // Call the addToCart API method from the API service
+      const response = await api.addToCart(product._id, 1); // Send product ID and quantity (default is 1)
+      setTimeout(() => setIsAdding(false), 500);
+      onAddToCart(response);  // Optionally update UI to reflect cart change
+    } catch (error) {
+      console.error('Failed to add product to cart:', error);
+      setIsAdding(false);
+    }
   };
 
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition group">
       <div className="bg-gray-100 p-8 flex items-center justify-center h-48 relative">
         {/* Corrected image rendering */}
-        <img 
-          src={product.imageUrl} 
-          alt={product.name} 
-          className="text-6xl" 
+        <img
+          src={product.imageUrl}
+          alt={product.name}
+          className="text-6xl"
         />
         {/* Display stock information */}
         {product.stock < 10 && product.stock > 0 && (
@@ -37,7 +45,7 @@ const ProductCard = ({ product, onAddToCart }) => {
         <p className="text-sm text-gray-600 mb-3 line-clamp-2">{product.description}</p>
         <div className="flex justify-between items-center">
           <span className="text-blue-600 font-bold text-xl">${product.price.toFixed(2)}</span>
-          <button 
+          <button
             onClick={handleAddToCart}
             disabled={product.stock === 0 || isAdding}
             className="bg-black text-white px-4 py-2 rounded-lg text-sm hover:bg-gray-800 transition disabled:bg-gray-400 disabled:cursor-not-allowed flex items-center space-x-2"

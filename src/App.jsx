@@ -26,12 +26,15 @@ export default function App() {
 
   const loadInitialData = async () => {
     setLoading(true);
-    const [productsData, categoriesData] = await Promise.all([
+    const [productsData, categoriesData,cartData] = await Promise.all([
       api.getProducts(),
-      api.getCategories()
+      api.getCategories(),
+      api.getCart()
     ]);
     setProducts(productsData);
     setCategories(categoriesData);
+    setCartItems(cartData);
+
     setLoading(false);
   };
 
@@ -40,18 +43,13 @@ export default function App() {
     setProducts(productsData);
   };
 
+  const loadCart = async () => {
+    const cartData = await api.getCart();
+    setCartItems(cartData);
+  }
+
   const addToCart = (product) => {
-    setCartItems(prev => {
-      const existing = prev.find(item => item.product._id === product._id);
-      if (existing) {
-        return prev.map(item =>
-          item.product._id === product._id
-            ? { ...item, quantity: item.quantity + 1 }
-            : item
-        );
-      }
-      return [...prev, { product, quantity: 1 }];
-    });
+    loadCart();
   };
 
   const updateQuantity = (productId, newQuantity) => {
@@ -96,7 +94,7 @@ export default function App() {
   };
 
   const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-  const cartTotal = cartItems.reduce((sum, item) => sum + (item.product.price * item.quantity), 0) + 10 + (cartItems.reduce((sum, item) => sum + (item.product.price * item.quantity), 0) * 0.1);
+  const cartTotal = cartItems.reduce((sum, item) => sum + (item?.product?.price * item.quantity), 0) + 10 + (cartItems.reduce((sum, item) => sum + (item?.product?.price * item.quantity), 0) * 0.1);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -170,6 +168,7 @@ export default function App() {
           setIsCartOpen(false);
           setIsCheckoutOpen(true);
         }}
+        refetch={loadCart}
       />
 
       <CheckoutModal
