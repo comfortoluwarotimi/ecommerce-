@@ -19,20 +19,12 @@ const ProductCard = ({ product, onAddToCart }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition group" style={{height:'350px'}}>
-      <div className="bg-gray-100 flex items-center justify-center h-48 relative">
-        {/* Corrected image rendering */}
+    <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition group" >
+      <div className="bg-gray-100 flex items-center justify-center">
         <img
           src={product.imageUrl}
           alt={product.name}
-          style={{ height: '300px', width: '100%'}}
         />
-        {/* Display stock information */}
-        {product.stock < 10 && product.stock > 0 && (
-          <span className="absolute top-2 right-2 bg-orange-500 text-white text-xs px-2 py-1 rounded">
-            Only {product.stock} left
-          </span>
-        )}
         {product.stock === 0 && (
           <span className="absolute top-2 right-2 bg-red-500 text-white text-xs px-2 py-1 rounded">
             Out of Stock
