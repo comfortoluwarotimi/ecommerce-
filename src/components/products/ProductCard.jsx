@@ -19,13 +19,13 @@ const ProductCard = ({ product, onAddToCart }) => {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition group">
-      <div className="bg-gray-100 p-8 flex items-center justify-center h-48 relative">
+    <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-xl transition group" style={{height:'350px'}}>
+      <div className="bg-gray-100 flex items-center justify-center h-48 relative">
         {/* Corrected image rendering */}
         <img
           src={product.imageUrl}
           alt={product.name}
-          className="text-6xl"
+          style={{ height: '300px', width: '100%'}}
         />
         {/* Display stock information */}
         {product.stock < 10 && product.stock > 0 && (
